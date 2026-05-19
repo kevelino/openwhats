@@ -1,0 +1,48 @@
+{
+  "name": "whatsapp-desktop",
+  "version": "1.0.0",
+  "description": "A simple and lightweight WhatsApp desktop wrapper for Linux built with Electron.",
+  "main": "main.js",
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-builder --linux",
+    "release": "electron-builder --linux -p always",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "build": {
+    "appId": "com.whatsapp.desktop",
+    "productName": "WhatsApp Desktop",
+    "linux": {
+      "target": [
+        "AppImage",
+        "deb",
+        "rpm",
+        "snap",
+        "pacman",
+        "tar.gz"
+      ],
+      "category": "Network"
+    },
+    "publish": [
+      {
+        "provider": "github",
+        "owner": "kevelino",
+        "repo": "whatsapp-desktop"
+      }
+    ]
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kevelino/whatsapp-desktop.git"
+  },
+  "keywords": [],
+  "author": "Kevelino",
+  "license": "MIT",
+  "type": "commonjs",
+  "devDependencies": {
+    "electron": "^42.1.0",
+    "electron-builder": "^26.8.1",
+    "electron-context-menu": "^4.1.2",
+    "electron-window-state": "^5.0.3"
+  }
+}
