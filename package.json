@@ -16,10 +16,7 @@
       "target": [
         "AppImage",
         "deb",
-        "rpm",
-        "snap",
-        "pacman",
-        "tar.gz"
+        "snap"
       ],
       "category": "Network"
     },
@@ -39,10 +36,12 @@
   "author": "Kevelino <justkevelino@gmail.com>",
   "license": "MIT",
   "type": "commonjs",
-  "devDependencies": {
-    "electron": "^42.1.0",
-    "electron-builder": "^26.8.1",
+  "dependencies": {
     "electron-context-menu": "^4.1.2",
     "electron-window-state": "^5.0.3"
+  },
+  "devDependencies": {
+    "electron": "^42.1.0",
+    "electron-builder": "^26.8.1"
   }
 }
