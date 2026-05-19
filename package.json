@@ -36,7 +36,7 @@
     "url": "https://github.com/kevelino/whatsapp-desktop.git"
   },
   "keywords": [],
-  "author": "Kevelino",
+  "author": "Kevelino <justkevelino@gmail.com>",
   "license": "MIT",
   "type": "commonjs",
   "devDependencies": {
