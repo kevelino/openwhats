@@ -9,6 +9,45 @@ A simple, lightweight, and unofficial WhatsApp desktop wrapper for Linux built w
 - **Window State Keeper**: Remembers your window size and position between sessions.
 - **Bypass Blocks**: Utilizes a custom User-Agent to bypass WhatsApp Web's browser restrictions.
 
+## Installation
+
+Go to the [Releases](https://github.com/kevelino/whatsapp-desktop/releases) page and download the appropriate package for your Linux distribution.
+
+### Debian / Ubuntu / Linux Mint (.deb)
+```bash
+sudo dpkg -i whatsapp-desktop_1.0.0_amd64.deb
+sudo apt-get install -f # To resolve any missing dependencies
+```
+
+### Fedora / RHEL / CentOS (.rpm)
+```bash
+sudo rpm -i whatsapp-desktop-1.0.0.x86_64.rpm
+```
+
+### Arch Linux / Manjaro (.pacman)
+```bash
+sudo pacman -U whatsapp-desktop-1.0.0.pacman
+```
+
+### Snap Package (.snap)
+```bash
+sudo snap install whatsapp-desktop_1.0.0_amd64.snap --dangerous
+```
+
+### Universal AppImage (.AppImage)
+```bash
+chmod +x whatsapp-desktop-1.0.0.AppImage
+./whatsapp-desktop-1.0.0.AppImage
+```
+
+### Generic Archive (.tar.gz)
+Extract the archive and run the executable inside.
+```bash
+tar -xzf whatsapp-desktop-1.0.0.tar.gz
+cd whatsapp-desktop-1.0.0
+./whatsapp-desktop
+```
+
 ## Development
 
 To run this application locally, you will need [Node.js](https://nodejs.org/) installed on your machine.

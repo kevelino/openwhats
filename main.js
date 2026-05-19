@@ -1,6 +1,6 @@
-const { app, BrowserWindow, shell } = require('electron');
+const { app, BrowserWindow, shell, nativeImage } = require('electron');
 const path = require('path');
-const contextMenu = require('electron-context-menu');
+const contextMenu = require('electron-context-menu').default;
 const windowStateKeeper = require('electron-window-state');
 
 // Setup context menu (right-click for copy/paste, etc.)
@@ -24,11 +24,11 @@ function createWindow() {
         y: mainWindowState.y,
         width: mainWindowState.width,
         height: mainWindowState.height,
-        icon: path.join(__dirname, 'build/icon.png'), // We will create this later or rely on default
+        icon: nativeImage.createFromPath(path.join(__dirname, 'build/icon.png')),
         webPreferences: {
             nodeIntegration: false,
             contextIsolation: true,
-            spellcheck: true
+            spellcheck: true,
         }
     });
 

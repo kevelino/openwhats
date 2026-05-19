@@ -4,7 +4,7 @@
   "description": "A simple and lightweight WhatsApp desktop wrapper for Linux built with Electron.",
   "main": "main.js",
   "scripts": {
-    "start": "electron .",
+    "start": "electron . --no-sandbox",
     "build": "electron-builder --linux",
     "release": "electron-builder --linux -p always",
     "test": "echo \"Error: no test specified\" && exit 1"
