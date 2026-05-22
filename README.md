@@ -1,5 +1,9 @@
 # WhatsApp Desktop for Linux
 
+[![Get it from the Snap Store](https://snapcraft.io/en/dark/install.svg)](https://snapcraft.io/whatsapp-linux-client)
+[![Get it from the Snap Store](https://snapcraft.io/en/light/install.svg)](https://snapcraft.io/whatsapp-linux-client)
+[![whatsapp-linux-client](https://snapcraft.io/whatsapp-linux-client/badge.svg)](https://snapcraft.io/whatsapp-linux-client)
+
 A simple, lightweight, and unofficial WhatsApp desktop wrapper for Linux built with [Electron](https://www.electronjs.org/).
 
 ## Features

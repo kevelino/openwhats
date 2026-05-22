@@ -1,11 +1,11 @@
 {
   "name": "whatsapp-linux-client",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "description": "A simple and lightweight WhatsApp desktop wrapper for Linux built with Electron.",
   "main": "main.js",
   "scripts": {
     "start": "electron . --no-sandbox",
-    "build": "electron-builder --linux",
+    "build": "electron-builder --linux -p never",
     "release": "electron-builder --linux -p always",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -24,7 +24,8 @@
       {
         "provider": "github",
         "owner": "kevelino",
-        "repo": "whatsapp-desktop"
+        "repo": "whatsapp-desktop",
+        "timeout": 600000
       }
     ]
   },
