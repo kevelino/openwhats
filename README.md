@@ -1,55 +1,40 @@
-# WhatsApp Desktop for Linux
+# OpenWhats
 
-[![Get it from the Snap Store](https://snapcraft.io/en/dark/install.svg)](https://snapcraft.io/whatsapp-linux-client)
-[![Get it from the Snap Store](https://snapcraft.io/en/light/install.svg)](https://snapcraft.io/whatsapp-linux-client)
-[![whatsapp-linux-client](https://snapcraft.io/whatsapp-linux-client/badge.svg)](https://snapcraft.io/whatsapp-linux-client)
+[![Get it from the Snap Store](https://snapcraft.io/en/dark/install.svg)](https://snapcraft.io/openwhats)
+[![Get it from the Snap Store](https://snapcraft.io/en/light/install.svg)](https://snapcraft.io/openwhats)
+[![openwhats](https://snapcraft.io/openwhats/badge.svg)](https://snapcraft.io/openwhats)
 
 A simple, lightweight, and unofficial WhatsApp desktop wrapper for Linux built with [Electron](https://www.electronjs.org/).
 
 ## Features
 
-- **Cross-Distribution Support**: Packaged for almost all major Linux distributions (`.AppImage`, `.deb`, `.rpm`, `.snap`, `.pacman`, `.tar.gz`).
+- **Linux Packages**: Builds AppImage, Debian package, and Snap artifacts through electron-builder.
 - **Context Menu**: Full support for right-click copy, paste, and save image functionality.
 - **Window State Keeper**: Remembers your window size and position between sessions.
 - **Bypass Blocks**: Utilizes a custom User-Agent to bypass WhatsApp Web's browser restrictions.
+- **Privacy Blur**: Blurs WhatsApp Web when the app window loses focus.
+- **Tray Menu**: Provides quick access to show OpenWhats or quit the app.
+- **Auto Updates**: Checks for published updates with `electron-updater`.
 
 ## Installation
 
-Go to the [Releases](https://github.com/kevelino/whatsapp-desktop/releases) page and download the appropriate package for your Linux distribution.
+Go to the [Releases](https://github.com/kevelino/openwhats/releases) page and download the appropriate package for your Linux distribution.
 
 ### Debian / Ubuntu / Linux Mint (.deb)
 ```bash
-sudo dpkg -i whatsapp-desktop_1.0.0_amd64.deb
+sudo dpkg -i openwhats_2.0.0_amd64.deb
 sudo apt-get install -f # To resolve any missing dependencies
-```
-
-### Fedora / RHEL / CentOS (.rpm)
-```bash
-sudo rpm -i whatsapp-desktop-1.0.0.x86_64.rpm
-```
-
-### Arch Linux / Manjaro (.pacman)
-```bash
-sudo pacman -U whatsapp-desktop-1.0.0.pacman
 ```
 
 ### Snap Package (.snap)
 ```bash
-sudo snap install whatsapp-desktop_1.0.0_amd64.snap --dangerous
+sudo snap install openwhats_2.0.0_amd64.snap --dangerous
 ```
 
 ### Universal AppImage (.AppImage)
 ```bash
-chmod +x whatsapp-desktop-1.0.0.AppImage
-./whatsapp-desktop-1.0.0.AppImage
-```
-
-### Generic Archive (.tar.gz)
-Extract the archive and run the executable inside.
-```bash
-tar -xzf whatsapp-desktop-1.0.0.tar.gz
-cd whatsapp-desktop-1.0.0
-./whatsapp-desktop
+chmod +x OpenWhats-2.0.0.AppImage
+./OpenWhats-2.0.0.AppImage
 ```
 
 ## Development
@@ -58,8 +43,8 @@ To run this application locally, you will need [Node.js](https://nodejs.org/) in
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/YOUR_GITHUB_USERNAME/whatsapp-desktop.git
-   cd whatsapp-desktop
+   git clone https://github.com/kevelino/openwhats.git
+   cd openwhats
    ```
 
 2. Install dependencies:
