@@ -26,22 +26,40 @@ contextMenu({
 let mainWindow;
 let tray = null;
 
+function showOrCreateWindow() {
+    if (mainWindow) {
+        mainWindow.show();
+        mainWindow.focus();
+        return;
+    }
+
+    createWindow();
+}
+
 function buildTrayMenu() {
     return Menu.buildFromTemplate([
-        { label: 'Show OpenWhats', click: () => mainWindow && mainWindow.show() },
+        { label: 'Show OpenWhats', click: showOrCreateWindow },
         { type: 'separator' },
         { label: 'Quit', click: () => { app.isQuitting = true; app.quit(); } }
     ]);
 }
 
-function updateTrayMenu() {
-    if (!tray) return;
+function ensureTray() {
+    if (!tray) {
+        tray = new Tray(path.join(__dirname, 'build/tray-icon.png'));
+    }
 
     tray.setToolTip('OpenWhats');
     tray.setContextMenu(buildTrayMenu());
 }
 
 function createWindow() {
+    if (mainWindow) {
+        mainWindow.show();
+        mainWindow.focus();
+        return;
+    }
+
     let mainWindowState = windowStateKeeper({
         defaultWidth: 1000,
         defaultHeight: 800
@@ -86,12 +104,7 @@ function createWindow() {
         }
     });
 
-    function createTray() {
-        tray = new Tray(path.join(__dirname, 'build/tray-icon.png'));
-        updateTrayMenu();
-    }
-
-    createTray();
+    ensureTray();
 
     mainWindow.on('closed', function () {
         mainWindow = null;
@@ -112,4 +125,13 @@ app.whenReady().then(() => {
 
 app.on('window-all-closed', function () {
     if (process.platform !== 'darwin') app.quit();
+});
+
+app.on('before-quit', function () {
+    app.isQuitting = true;
+
+    if (tray) {
+        tray.destroy();
+        tray = null;
+    }
 });
