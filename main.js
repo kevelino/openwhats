@@ -1,24 +1,52 @@
-const { app, BrowserWindow, shell, nativeImage } = require('electron');
+const { app, BrowserWindow, shell, nativeImage, Tray, Menu } = require('electron');
+const fs = require('fs');
 const path = require('path');
 const contextMenu = require('electron-context-menu').default;
 const windowStateKeeper = require('electron-window-state');
+const { autoUpdater } = require('electron-updater');
 
-// Setup context menu (right-click for copy/paste, etc.)
+const appDataPath = app.getPath('appData');
+const oldDataDir = path.join(appDataPath, 'whatsapp-linux-client');
+const newDataDir = path.join(appDataPath, 'openwhats');
+
+if (fs.existsSync(oldDataDir) && !fs.existsSync(newDataDir)) {
+    try {
+        fs.renameSync(oldDataDir, newDataDir);
+        console.log('User data migration completed successfully.');
+    } catch (err) {
+        console.error('User data migration failed, possibly due to Snap confinement:', err);
+    }
+}
+
 contextMenu({
     showSaveImageAs: true,
     showCopyImage: true,
 });
 
 let mainWindow;
+let tray = null;
+
+function buildTrayMenu() {
+    return Menu.buildFromTemplate([
+        { label: 'Show OpenWhats', click: () => mainWindow && mainWindow.show() },
+        { type: 'separator' },
+        { label: 'Quit', click: () => { app.isQuitting = true; app.quit(); } }
+    ]);
+}
+
+function updateTrayMenu() {
+    if (!tray) return;
+
+    tray.setToolTip('OpenWhats');
+    tray.setContextMenu(buildTrayMenu());
+}
 
 function createWindow() {
-    // Load the previous state with fallback to defaults
     let mainWindowState = windowStateKeeper({
         defaultWidth: 1000,
         defaultHeight: 800
     });
 
-    // Create the browser window using the state information
     mainWindow = new BrowserWindow({
         x: mainWindowState.x,
         y: mainWindowState.y,
@@ -32,18 +60,13 @@ function createWindow() {
         }
     });
 
-    // Let us register listeners on the window, so we can update the state
-    // automatically (the listeners will be removed when the window is closed)
     mainWindowState.manage(mainWindow);
 
-    // Set a custom User-Agent to bypass WhatsApp Web's Electron block
-    const userAgent = 'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36';
+    const userAgent = `Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/${process.versions.chrome} Safari/537.36`;
     mainWindow.webContents.userAgent = userAgent;
 
-    // Load WhatsApp Web
     mainWindow.loadURL('https://web.whatsapp.com/', { userAgent });
 
-    // Open links in the default external browser
     mainWindow.webContents.setWindowOpenHandler(({ url }) => {
         if (url.startsWith('http:') || url.startsWith('https:')) {
             shell.openExternal(url);
@@ -51,12 +74,34 @@ function createWindow() {
         return { action: 'deny' };
     });
 
+    let blurKey;
+    mainWindow.on('blur', async () => {
+        blurKey = await mainWindow.webContents.insertCSS(
+            'body { filter: blur(15px) !important; pointer-events: none !important; }'
+        );
+    });
+    mainWindow.on('focus', async () => {
+        if (blurKey) {
+            await mainWindow.webContents.removeInsertedCSS(blurKey);
+        }
+    });
+
+    function createTray() {
+        tray = new Tray(path.join(__dirname, 'build/tray-icon.png'));
+        updateTrayMenu();
+    }
+
+    createTray();
+
     mainWindow.on('closed', function () {
         mainWindow = null;
     });
+
+    autoUpdater.checkForUpdatesAndNotify().catch(err => {
+        console.error('Update check failed:', err);
+    });
 }
 
-// Some Linux window managers require this for the icon to work properly
 app.whenReady().then(() => {
     createWindow();
 
@@ -65,7 +110,6 @@ app.whenReady().then(() => {
     });
 });
 
-// Quit when all windows are closed, except on macOS.
 app.on('window-all-closed', function () {
     if (process.platform !== 'darwin') app.quit();
 });
