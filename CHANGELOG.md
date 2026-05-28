@@ -19,6 +19,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - Updated app identifiers and package metadata to use `openwhats` and `io.github.kevelino.openwhats`.
 - Translated runtime logs and tray labels in `main.js` to English.
 
+### Fixed
+- Updated Snap packaging to use a newer `core22` base without the legacy template runtime, improving startup compatibility on newer Ubuntu releases.
+
 ## [1.0.2] - 2026-05-22
 
 ### Added

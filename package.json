@@ -20,6 +20,34 @@
       ],
       "category": "Network"
     },
+    "snap": {
+      "base": "core22",
+      "confinement": "strict",
+      "allowNativeWayland": true,
+      "grade": "devel",
+      "executableArgs": [
+        "--disable-gpu",
+        "--disable-software-rasterizer",
+        "--disable-gpu-sandbox",
+        "--disable-dev-shm-usage",
+        "--ozone-platform=x11"
+      ],
+      "environment": {
+        "GSETTINGS_BACKEND": "memory"
+      },
+      "plugs": [
+        "network",
+        "network-bind",
+        "opengl",
+        "camera",
+        "audio-playback",
+        "audio-record",
+        "desktop",
+        "desktop-legacy",
+        "x11",
+        "wayland"
+      ]
+    },
     "publish": [
       {
         "provider": "github",
