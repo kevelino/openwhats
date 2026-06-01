@@ -24,7 +24,7 @@
       "base": "core22",
       "confinement": "strict",
       "allowNativeWayland": true,
-      "grade": "devel",
+      "grade": "stable",
       "executableArgs": [
         "--disable-gpu",
         "--disable-software-rasterizer",

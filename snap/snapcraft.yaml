@@ -1,0 +1,38 @@
+name: openwhats
+version: '2.0.0'
+summary: A simple and lightweight WhatsApp desktop wrapper.
+description: |
+  OpenWhats is a privacy-focused, lightweight desktop wrapper for WhatsApp Web 
+  built with Electron, optimized for Linux environments.
+
+grade: stable
+confinement: strict
+base: core24
+
+apps:
+  openwhats:
+    # Remplacement de '--ozone-platform=x11' par '--ozone-platform x11' pour supprimer le '='
+    command: openwhats --disable-gpu --disable-software-rasterizer --disable-gpu-sandbox --disable-dev-shm-usage --ozone-platform x11
+    extensions: [gnome]
+    environment:
+      GSETTINGS_BACKEND: memory
+    plugs:
+      - network
+      - network-bind
+      - opengl
+      - camera
+      - audio-playback
+      - audio-record
+      - desktop
+      - desktop-legacy
+      - x11
+      - wayland
+
+parts:
+  openwhats:
+    plugin: dump
+    source: .
+    override-build: |
+      npm install
+      npx electron-builder --linux snap --dir
+      cp -r dist/linux-unpacked/* $SNAPCRAFT_PART_INSTALL/
