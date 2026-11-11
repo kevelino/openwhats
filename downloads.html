@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>OpenWhats Downloads</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin:0; padding:16px; background:#1a1a1a; color:#eee; }
+  h2 { margin-top:0; }
+  .item { background:#2a2a2a; padding:10px; border-radius:8px; margin-bottom:8px; }
+  .name { font-weight:600; }
+  .meta { font-size:12px; color:#aaa; }
+  .bar { height:6px; background:#444; border-radius:3px; margin-top:6px; overflow:hidden; }
+  .fill { height:100%; background:#25d366; width:0%; }
+</style>
+</head>
+<body>
+<h2>Downloads</h2>
+<div id="list"></div>
+<script>
+  const list = document.getElementById('list');
+  const items = new Map();
+  function ensureItem(payload) {
+    if (items.has(payload.savePath)) return items.get(payload.savePath);
+    const el = document.createElement('div');
+    el.className = 'item';
+    el.innerHTML = `<div class="name">${payload.filename}</div><div class="meta">${payload.context} — ${payload.savePath}</div><div class="bar"><div class="fill"></div></div>`;
+    list.prepend(el);
+    const obj = { el, fill: el.querySelector('.fill'), meta: el.querySelector('.meta') };
+    items.set(payload.savePath, obj);
+    return obj;
+  }
+  window.addEventListener('DOMContentLoaded', () => {
+    // receive from main via ipcRenderer injected? Need preload. Use openwhats? We'll add listener via ipcRenderer global not available.
+  });
+</script>
+</body>
+</html>

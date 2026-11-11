@@ -5,6 +5,17 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [Unreleased]
+
+## [2.1.0] - 2026-11-11
+
+### Added
+- Added a global hotkey (configurable via `config.json`) to show/hide the window.
+- Added dock/taskbar badge count based on WhatsApp Web's document title.
+- Added RPM (`.rpm`) packages to the Linux build targets.
+- Added optional passcode app lock (enable/disable from Settings; lock on start/hide/idle).
+- Added downloads manager window and per-chat media sorting into `~/WhatsApp_Media/<chat>`.
+
 ## [2.0.0] - 2026-05-28
 
 ### Added

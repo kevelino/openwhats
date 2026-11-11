@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>OpenWhats Settings</title>
+<style>
+  body { font-family: system-ui, sans-serif; margin:0; padding:20px; background:#1a1a1a; color:#eee; }
+  h2 { margin-top:0; }
+  .row { margin:12px 0; }
+  input[type=password] { padding:8px; border-radius:6px; border:1px solid #444; background:#111; color:#eee; }
+  button { padding:8px 12px; border:none; border-radius:6px; background:#25d366; color:#fff; cursor:pointer; margin-right:6px; }
+  .status { color:#aaa; font-size:13px; }
+</style>
+</head>
+<body>
+<h2>App Lock</h2>
+<div class="status" id="status"></div>
+<div class="row">
+  <input id="passcode" type="password" placeholder="New passcode (min 4)" />
+  <button id="set">Set Passcode & Enable</button>
+</div>
+<div class="row">
+  <button id="disable">Disable App Lock</button>
+  <button id="locknow">Lock Now</button>
+</div>
+<h2>Downloads</h2>
+<div class="row">
+  <button id="opendownloads">Open Downloads Manager</button>
+</div>
+<script>
+  async function refresh() {
+    const s = await window.openwhats.lock.status();
+    document.getElementById('status').textContent = s.enabled ? 'Enabled' : 'Disabled';
+  }
+  document.getElementById('set').addEventListener('click', async () => {
+    const pc = document.getElementById('passcode').value;
+    const res = await window.openwhats.lock.setPasscode(pc);
+    if (res && res.ok) { alert('Passcode set.'); document.getElementById('passcode').value=''; }
+    else alert((res && res.error) || 'Failed');
+    refresh();
+  });
+  document.getElementById('disable').addEventListener('click', async () => {
+    await window.openwhats.lock.disable();
+    refresh();
+  });
+  document.getElementById('locknow').addEventListener('click', async () => {
+    await window.openwhats.lock.lockNow();
+  });
+  document.getElementById('opendownloads').addEventListener('click', async () => {
+    await window.openwhats.downloads.open();
+  });
+  refresh();
+</script>
+</body>
+</html>

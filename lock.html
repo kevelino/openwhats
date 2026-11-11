@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>OpenWhats Locked</title>
+<style>
+  body { font-family: system-ui, sans-serif; background: #1a1a1a; color: #eee; display:flex; align-items:center; justify-content:center; height:100vh; margin:0; }
+  .card { background:#2a2a2a; padding:24px; border-radius:12px; width:320px; text-align:center; }
+  input { width:100%; padding:10px; margin:12px 0; border-radius:6px; border:1px solid #444; background:#111; color:#eee; }
+  button { width:100%; padding:10px; border:none; border-radius:6px; background:#25d366; color:#fff; font-weight:600; cursor:pointer; }
+  .err { color:#ff6b6b; font-size:13px; min-height:18px; }
+</style>
+</head>
+<body>
+<div class="card">
+  <h2>OpenWhats Locked</h2>
+  <p>Enter your passcode to continue.</p>
+  <input id="passcode" type="password" placeholder="Passcode" autofocus />
+  <button id="unlock">Unlock</button>
+  <div class="err" id="err"></div>
+</div>
+<script>
+  const passcodeInput = document.getElementById('passcode');
+  const errEl = document.getElementById('err');
+  async function tryUnlock() {
+    const res = await window.openwhats.lock.verify(passcodeInput.value);
+    if (res && res.ok) {
+      errEl.textContent = '';
+    } else {
+      errEl.textContent = (res && res.error) || 'Incorrect passcode.';
+      passcodeInput.value = '';
+      passcodeInput.focus();
+    }
+  }
+  document.getElementById('unlock').addEventListener('click', tryUnlock);
+  passcodeInput.addEventListener('keydown', (e) => { if (e.key === 'Enter') tryUnlock(); });
+</script>
+</body>
+</html>

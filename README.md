@@ -13,8 +13,10 @@ A simple, lightweight, and unofficial WhatsApp desktop wrapper for Linux built w
 - **Window State Keeper**: Remembers your window size and position between sessions.
 - **Bypass Blocks**: Utilizes a custom User-Agent to bypass WhatsApp Web's browser restrictions.
 - **Privacy Blur**: Blurs WhatsApp Web when the app window loses focus.
-- **Tray Menu**: Provides quick access to show OpenWhats or quit the app.
+- **Tray Menu**: Provides quick access to show OpenWhats, settings, downloads, or quit the app.
 - **Auto Updates**: Checks for published updates with `electron-updater`.
+- **App Lock**: Optional passcode lock (enable from Settings) that covers the window on hide/idle/start.
+- **Downloads Manager**: Tracks downloads and sorts them into per-chat folders under `~/WhatsApp_Media`.
 
 ## Installation
 
@@ -35,6 +37,13 @@ sudo snap install openwhats_2.0.0_amd64.snap --dangerous
 ```bash
 chmod +x OpenWhats-2.0.0.AppImage
 ./OpenWhats-2.0.0.AppImage
+```
+
+### RPM Package (.rpm) (Fedora / RHEL / openSUSE)
+```bash
+sudo rpm -i openwhats-2.0.0.x86_64.rpm
+# or
+sudo dnf install ./openwhats-2.0.0.x86_64.rpm
 ```
 
 ## Development
